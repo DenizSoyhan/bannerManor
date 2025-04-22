@@ -1,0 +1,53 @@
+*{
+  padding: 0;
+  margin: 0;
+
+  background-color: hsl(0, 0%, 9%);
+
+  color: antiquewhite;
+}
+
+#root{
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+}
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+
+  padding: 1em;
+  background-color: hsl(0, 0%, 24%);
+  
+  border-radius: 15px;
+}
+
+.content{
+  width: 600px;
+  height: 200px;
+
+  font-size: 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.downloadButton{
+  margin: 0.5em auto;
+  padding: 0.5em 1em;
+
+  font-size: 1.25rem;
+  font-weight: bold;
+
+  border: none;
+
+  cursor:pointer;
+
+}
