@@ -25,8 +25,19 @@
   
   border-radius: 15px;
 }
+.realContent{
+  position: absolute;
+  /*top: -9999px;
+  left: -9999px;*/
+  top: 0px;
+  left: 0px;
 
-.content{
+
+
+}
+.content,
+.realContent{
+
   width: 600px;
   height: 200px;
 
@@ -37,6 +48,10 @@
   align-items: center;
 
   text-align: center;
+
+  border: 2px solid white;
+
+  box-sizing: border-box;
 }
 
 .downloadButton{
@@ -49,5 +64,14 @@
   border: none;
 
   cursor:pointer;
+
+  transition: all 0.4s;
+}
+.downloadButton:hover{
+  border-radius: 15px;
+  background-color: hsl(0, 0%, 13%);
+ 
+  
+  color: hsl(34, 78%, 81%);
 
 }
