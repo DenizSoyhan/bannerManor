@@ -61,13 +61,13 @@
   
   text-align: center;
   
-  border: 2px solid white;
-  
   box-sizing: border-box;
 }
 .realContent span{
   font-size: inherit;
   color: inherit;
+
+  background-color: transparent;
 }
 
 .downloadButton {
@@ -94,15 +94,24 @@
 }
 
 /*OPTIONS*/
-.optionCollection {
-    height: 150px;
+.allTheOptions{
+  background-color: transparent;
 
-    background-color: hsl(0, 0%, 24%);
+  display: flex;
+  flex-direction: column;
+}
+
+.optionCollection {
+    height: 50px;
+
+    background-color: transparent;
 
     display: flex;
 
     justify-content: space-evenly;
     align-items: center;
+
+    margin-top: 2em;
 }
 
 
@@ -156,7 +165,10 @@
     background-color: #2c2c2c;
     margin-left: 5px;
   }
-
+  #borderSize{
+    cursor: pointer;
+    width: 30px;
+  }
 
     /* Chrome, Safari, Edge, Opera */
     input[type="number"]::-webkit-inner-spin-button,
@@ -169,6 +181,15 @@
     input[type="number"] {
     -moz-appearance: textfield;
     }
+
+    #borderSize::-webkit-inner-spin-button,
+    #borderSize::-webkit-outer-spin-button {
+    -webkit-appearance: auto !important;
+    margin: initial !important;
+    cursor: pointer;
+    }
+
+
   
     /*ICON STYLING*/
 
@@ -199,4 +220,11 @@
       height: 100%;
       cursor: pointer;
 
+    }
+
+    /*accordion*/
+  
+    .deneme{
+      background-color: #2c2c2c;
+      margin-left: 15px;
     }

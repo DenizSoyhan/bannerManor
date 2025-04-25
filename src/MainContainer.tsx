@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import html2canvas from 'html2canvas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTextHeight, faArrowsLeftRightToLine, faPaintbrush } from "@fortawesome/free-solid-svg-icons";
+import { faTextHeight, faArrowsLeftRightToLine, faPaintbrush, faBorderTopLeft } from "@fortawesome/free-solid-svg-icons";
 import { fontFamily } from "html2canvas/dist/types/css/property-descriptors/font-family";
 
 
@@ -18,11 +18,11 @@ function MainContainer() {
 
     const [contentFontSize, setContentFontSize] = useState<number>(72);
     const [contentTextColor, setContentTextColor] = useState<string>("antiquewhite");
-    
+
     const [fontDropdownOpen, setFontDropdownOpen] = useState(false);
     const [hoveredFont, setHoveredFont] = useState<string | null>(null);
     const [selectedFont, setSelectedFont] = useState<string | null>("Cantarell");
-    
+
     const commonFonts: string[] = [
         "Cantarell",
         "Spectral",
@@ -39,21 +39,48 @@ function MainContainer() {
 
     const fontSelectorRef = useRef<HTMLDivElement | null>(null);
 
-useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      fontSelectorRef.current &&
-      !fontSelectorRef.current.contains(event.target as Node)
-    ) {
-      setFontDropdownOpen(false);
-    }
-  };
+    const [borderColor, setBorderColor] = useState<string>("white");
+    const [borderWidth, setBorderWidth] = useState<number>(0);
+    const [borderStyle, setBorderStyle] = useState<string>("solid");
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    const borderStyles = [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+
+    ];
+
+    const [borderStyleDropdownOpen, setBorderStyleDropdownOpen] = useState(false);
+    const [hoveredBorderStyle, setHoveredBorderStyle] = useState<string | null>(null);
+
+    const borderRef = useRef<HTMLDivElement | null>(null); // Reference to the dropdown container
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            // Check if click is outside font dropdown
+            if (fontSelectorRef.current && 
+                !fontSelectorRef.current.contains(event.target as Node)) {
+                setFontDropdownOpen(false);
+            }
+            
+            // Check if click is outside border dropdown - keep this as a separate condition
+            if (borderRef.current && 
+                !borderRef.current.contains(event.target as Node)) {
+                setBorderStyleDropdownOpen(false);
+            }
+        };
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     function addSpans(): void {
         const visibleContainer: HTMLDivElement | null = contentRef.current;
@@ -138,7 +165,7 @@ useEffect(() => {
     }
 
     function handleContentTextColor(e: React.ChangeEvent<HTMLInputElement>): void {
-        const newColor = e.target.value;
+        const newColor: string = e.target.value;
         setContentTextColor(newColor);
 
         const optionBar = document.getElementById("color") as HTMLInputElement;
@@ -147,6 +174,34 @@ useEffect(() => {
 
         optionBar.value = newColor;
     }
+
+    function handleBorderSize(e: React.ChangeEvent<HTMLInputElement>) {
+        const newBorderSize: string = e.target.value;
+        setBorderWidth(Number.parseInt(newBorderSize));
+
+        const optionBar = document.getElementById("borderSize") as HTMLInputElement;
+
+        if (!optionBar) return;
+
+        optionBar.value = newBorderSize;
+    }
+
+    function handleBorderColor(e: React.ChangeEvent<HTMLInputElement>) {
+        const newBorderColor: string = e.target.value;
+        setBorderColor(newBorderColor);
+
+        const optionBar = document.getElementById("borderColor") as HTMLInputElement;
+
+        if (!optionBar) return;
+
+        optionBar.value = newBorderColor;
+    }
+
+    function handleBorderStyle(e: React.ChangeEvent<HTMLInputElement>) {
+
+
+    }
+
 
     function handleDownload(): void {
         const element: HTMLElement | null = document.querySelector('.realContent');
@@ -172,6 +227,8 @@ useEffect(() => {
 
     return (
         <div className="mainContainer">
+            <div className="allTheOptions">
+
             <div className="optionCollection">
                 <div className="optionContainer" id="sizeOptions">
 
@@ -202,81 +259,190 @@ useEffect(() => {
                     </div>
 
 
+
+
                 </div>
 
-                
 
 
+                <div className="optionContainer" id="borderOptions" ref={borderRef}>
+                    <div className="info">
 
-                <div className="optionContainer" id="sizeOptions" ref={fontSelectorRef}>
-  <div
-    className="fontSelectorHeader"
-    onClick={() => setFontDropdownOpen(!fontDropdownOpen)}
-    style={{
-      padding: "2px",
-      paddingLeft: "5px",
-      backgroundColor: "#1e1e1e",
-      border: "1px solid #555",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontFamily: selectedFont || "inherit",
-      fontSize: "18px",
-      width: "150px",
-      height: "30px",
-      textAlign: "center",
-      display: "flex",
-      alignItems: "center",
-    }}
-  >
-    {selectedFont || "Choose Font"}
-  </div>
+                        <FontAwesomeIcon style={{ marginRight: "10px" }} icon={faBorderTopLeft} />
+                        <div className="info">
 
-  {fontDropdownOpen && (
-    <div
-      id="fontSelector"
-      style={{
-        marginTop: "8px",
-        maxHeight: "200px",
-        overflowY: "auto",
-        border: "1px solid #555",
-        borderRadius: "6px",
-        padding: "5px",
-        backgroundColor: "#2a2a2a",
-        width: "200px",
-        position: "absolute",
-        zIndex: 10,
-      }}
-    >
-      {commonFonts.map((font) => (
-        <div
-          key={font}
-          onMouseEnter={() => setHoveredFont(font)}
-          onMouseLeave={() => setHoveredFont(null)}
-          onClick={() => {
-            setSelectedFont(font);
-            setFontDropdownOpen(false);
 
-          }}
-          style={{
-            minHeight: "25px",
-            width: "91%",
-            fontFamily: font,
-            fontSize: "20px",
-            padding: "8px",
-            marginBottom: "4px",
-            borderRadius: "4px",
-            backgroundColor:
-              hoveredFont === font || selectedFont === font
-                ? "#727475"
-                : "transparent",
-            cursor: "pointer",
-          }}
-        >
-          {font}
-        </div>
-      ))}
-    </div>
-  )}
+                            <input
+
+                                type="number"
+                                id="borderSize"
+                                value={`${borderWidth}`}
+                                onChange={(e) => {
+                                    handleBorderSize(e);
+                                }}
+                            />
+                            <span className="unit">px</span>
+
+                        </div>
+
+
+                    <div className="deneme">
+                    <div
+                        className="borderStyleSelectorHeader"
+                        onClick={() =>setBorderStyleDropdownOpen(!borderStyleDropdownOpen)}
+                        style={{
+                            padding: "2px",
+                            paddingLeft: "5px",
+                            backgroundColor: "#1e1e1e",
+                            border: "1px solid #555",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                            fontSize: "18px",
+                            width: "70px",
+                            height: "30px",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        {borderStyle}
+                    </div>
+                    {borderStyleDropdownOpen && (
+                        <div
+                            id="borderSt"
+                            style={{
+                                marginTop: "2px",
+                                maxHeight: "200px",
+                                overflowY: "auto",
+                                border: "1px solid #555",
+                                borderRadius: "6px",
+                                padding: "5px",
+                                backgroundColor: "#2a2a2a",
+                                width: "200px",
+                                position: "absolute",
+                                zIndex: 10,
+                            }}
+                        >
+                            {borderStyles.map((bs) => (
+                                <div
+                                    key={bs}
+                                    onMouseEnter={() => setHoveredBorderStyle(bs)}
+                                    onMouseLeave={() => setHoveredBorderStyle(null)}
+                                    onClick={() => {
+                                        setBorderStyle(bs);
+                                        setBorderStyleDropdownOpen(false);
+
+                                    }}
+                                    style={{
+                                        minHeight: "25px",
+                                        width: "91%",
+                                        fontSize: "20px",
+                                        padding: "8px",
+                                        marginBottom: "4px",
+                                        borderRadius: "4px",
+                                        backgroundColor:
+                                            hoveredBorderStyle === bs || borderStyle === bs
+                                                ? "#727475"
+                                                : "transparent",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {bs}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    </div>
+
+
+                        <FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faPaintbrush} />
+                        <label className="colorPickerWrapper" style={{ backgroundColor: borderColor }}>
+                            <input
+                                type="color"
+                                className="colorPicker"
+                                id="borderColor"
+                                value={`${borderColor}`}
+                                onChange={(e) => {
+                                    handleBorderColor(e);
+                                }}
+                            />
+                        </label>
+
+
+                    </div>
+                </div>
+            </div>
+            <div className="optionCollection">
+
+            <div className="optionContainer" ref={fontSelectorRef}>
+                    <div
+                        className="fontSelectorHeader"
+                        onClick={() => setFontDropdownOpen(!fontDropdownOpen)}
+                        style={{
+                            padding: "2px",
+                            paddingLeft: "5px",
+                            backgroundColor: "#1e1e1e",
+                            border: "1px solid #555",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                            fontFamily: selectedFont || "inherit",
+                            fontSize: "18px",
+                            width: "150px",
+                            height: "30px",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        {selectedFont || "Choose Font"}
+                    </div>
+
+                    {fontDropdownOpen && (
+                        <div
+                            id="fontSelector"
+                            style={{
+                                marginTop: "8px",
+                                maxHeight: "200px",
+                                overflowY: "auto",
+                                border: "1px solid #555",
+                                borderRadius: "6px",
+                                padding: "5px",
+                                backgroundColor: "#2a2a2a",
+                                width: "200px",
+                                position: "absolute",
+                                zIndex: 10,
+                            }}
+                        >
+                            {commonFonts.map((font) => (
+                                <div
+                                    key={font}
+                                    onMouseEnter={() => setHoveredFont(font)}
+                                    onMouseLeave={() => setHoveredFont(null)}
+                                    onClick={() => {
+                                        setSelectedFont(font);
+                                        setFontDropdownOpen(false);
+
+                                    }}
+                                    style={{
+                                        minHeight: "25px",
+                                        width: "91%",
+                                        fontFamily: font,
+                                        fontSize: "20px",
+                                        padding: "8px",
+                                        marginBottom: "4px",
+                                        borderRadius: "4px",
+                                        backgroundColor:
+                                            hoveredFont === font || selectedFont === font
+                                                ? "#727475"
+                                                : "transparent",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {font}
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
 
 
@@ -318,6 +484,9 @@ useEffect(() => {
 
                 </div>
             </div>
+
+            </div>
+
             {/*<textarea className="optionCollection" onChange={handleContentChange} value={contentV}></textarea>*/}
             <div className="content"
                 style={{
@@ -325,7 +494,10 @@ useEffect(() => {
                     width: `${contentWidth}px`,
                     fontSize: `${contentFontSize}px`,
                     color: `${contentTextColor}`,
-                    fontFamily:`${selectedFont}`
+                    fontFamily: `${selectedFont}`,
+                    borderColor: `${borderColor}`,
+                    borderWidth: `${borderWidth}px`,
+                    borderStyle: `${borderStyle}`,
 
                 }} contentEditable={true} spellCheck={false} ref={contentRef}>
                 bannerManor
@@ -340,7 +512,10 @@ useEffect(() => {
                     width: `${contentWidth}px`,
                     fontSize: `${contentFontSize}px`,
                     color: `${contentTextColor}`,
-                    fontFamily:`${selectedFont}`
+                    fontFamily: `${selectedFont}`,
+                    borderColor: `${borderColor}`,
+                    borderWidth: `${borderWidth}px`,
+                    borderStyle: `${borderStyle}`,
                 }}
 
                 ref={realContentRef}>
