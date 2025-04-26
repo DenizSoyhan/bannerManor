@@ -310,7 +310,7 @@ function MainContainer() {
 
 
     function handleDownload(): void {
-        const element: HTMLElement | null = document.querySelector('.realContent');
+        const element: HTMLElement | null = document.querySelector('.content');
         if (element) {
             html2canvas(element, {
                 width: contentWidth,
