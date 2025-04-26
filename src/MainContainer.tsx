@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import html2canvas from 'html2canvas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTextHeight, faArrowsLeftRightToLine, faPaintbrush, faBorderTopLeft, faPalette, faItalic, faBold, faUnderline,faCircleNotch, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { fontFamily } from "html2canvas/dist/types/css/property-descriptors/font-family";
-
+import { faTextHeight, faArrowsLeftRightToLine, faPaintbrush, faBorderTopLeft, faPalette, faItalic, faBold, faUnderline, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import FunButton from "./FunButton";
 
 function MainContainer() {
+
+
 
     const contentRef = useRef<HTMLDivElement>(null);
     const realContentRef = useRef<HTMLDivElement>(null);
@@ -333,8 +334,10 @@ function MainContainer() {
 
     return (
         <div className="mainContainer">
-            <div className="allTheOptions">
 
+        <FunButton></FunButton>
+            <div className="allTheOptions"> 
+                
                 <div className="optionCollection">
                     <div className="optionContainer" id="sizeOptions">
 
