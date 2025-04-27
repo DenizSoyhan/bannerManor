@@ -35,7 +35,7 @@ canvas.style.height = `${windowHeight}px`;
         radius: number;
         color: string;
         lineWidth: number;
-        text: string;
+        //text: string;
         speed: number;
         cx: number;
         cy: number;
@@ -46,7 +46,7 @@ canvas.style.height = `${windowHeight}px`;
           radius: number,
           color: string,
           lineWidth: number = 0,
-          text: string,
+          //text: string,
           speed: number
         ) {
           this.xpos = xpos;
@@ -54,7 +54,7 @@ canvas.style.height = `${windowHeight}px`;
           this.radius = radius;
           this.color = color;
           this.lineWidth = lineWidth;
-          this.text = text;
+          //this.text = text;
           this.speed = speed;
 
           const angle = Math.random() * Math.PI * 2; // and these 3 will make them have the same speed
@@ -67,7 +67,7 @@ canvas.style.height = `${windowHeight}px`;
       
         draw(context: CanvasRenderingContext2D): void {
           context.beginPath();
-          context.strokeStyle = this.color;
+          //context.strokeStyle = this.color;
           
           context.arc(this.xpos, this.ypos, this.radius, 0, Math.PI * 2, false);
           context.lineWidth = this.lineWidth;
@@ -75,9 +75,10 @@ canvas.style.height = `${windowHeight}px`;
           context.textAlign = 'center';
           context.textBaseline = 'middle';  
           context.font = "20px Monospace";
-          context.fillText(this.text, this.xpos, this.ypos + 5);
+          //context.fillText(this.text, this.xpos, this.ypos + 5);
       
           context.fill();
+          //context.stroke();
           context.closePath();
         }
       
@@ -137,7 +138,7 @@ canvas.style.height = `${windowHeight}px`;
         const buttonCenterX = rect.left + rect.width / 2;
         const buttonCenterY = rect.top + rect.height / 2;
 
-        let aCircle=new Circle(buttonCenterX,buttonCenterY, rad, "green",5,"",4);
+        let aCircle=new Circle(buttonCenterX,buttonCenterY, rad, "#990000",5,4);
         allCircles.push(aCircle);
     }
     funButton.addEventListener("mousedown",()=>ball())

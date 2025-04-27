@@ -5,7 +5,7 @@
   "homepage": "https://denizsoyhan.github.io/bannermanor",
   "type": "module",
   "scripts": {
-    "dev": "versionite",
+    "dev": "vite",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "build": "tsc -b && vite build",
