@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTextHeight, faArrowsLeftRightToLine, faPaintbrush, faBorderTopLeft, faPalette, faItalic, faBold, faUnderline, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FunButton from "./FunButton";
 
+import "./index.css";
+
 function MainContainer() {
 
 
@@ -37,6 +39,12 @@ function MainContainer() {
         "Cascadia Code",
         "Cal Sans",
         "Oswald",
+        "Playwrite RO",
+        "Roboto Slab",
+        "Playfair Display",
+        "Coral Pixels",
+        "Tagesschrift",
+        "Wood Block CG"
 
     ];
 
@@ -70,6 +78,8 @@ function MainContainer() {
     const borderRef = useRef<HTMLDivElement | null>(null); // Reference to the dropdown container
 
     useEffect(() => {
+
+
         const handleClickOutside = (event: MouseEvent) => {
             // Check if click is outside font dropdown
             if (fontSelectorRef.current &&
@@ -89,6 +99,8 @@ function MainContainer() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+
 
     function addSpans(): void {
         const visibleContainer: HTMLDivElement | null = contentRef.current;
@@ -569,6 +581,8 @@ function MainContainer() {
 
                                         }}
                                         style={{
+                                            display:"flex",
+                                            alignItems:"center",
                                             minHeight: "25px",
                                             width: "91%",
                                             fontFamily: font,

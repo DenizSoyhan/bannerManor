@@ -303,3 +303,13 @@
     #canvas{
       position: absolute;
     }
+
+    /*including fonts*/
+    @font-face {
+      font-family: 'Wood Block CG';
+      src: url('./fonts/WoodBlockCGRegular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap; /* Ensures text remains visible during font loading */
+    }
+  
