@@ -1,54 +1,24 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/33990815-9f61-472f-bb4d-99d1b870b48f" width="700" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A banner generator app that you can check it out from [here](https://denizsoyhan.github.io/bannerManor/).
+This is a tool that I built so I can easily create banners for GitHub README's.  
 
-Currently, two official plugins are available:
+# Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> 1) Banner Size and background can be modified.
+> 2) Banner border size, style and color can be modified and the corners can be rounded to give a softer look.
+> 3) There are numerous font styles, the text color and size can also be modified.
+> 4) The text can be further stylized with <ins>underlined</ins>, **bold**, *italic* and a **<ins>*combination*</ins>** of them.
 
-## Expanding the ESLint configuration
+<p align="center">
+<img src="https://github.com/user-attachments/assets/0d870d5f-8e68-47ac-82e8-eb3d36e805b7" width="800" />
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+ ## Features in the Future
+> * Individual character customization.
+> * Icons from [FontAwesome](https://fontawesome.com/).
+> * You will be able to use fonts by linking Google Fonts.
+> * Upload images from local files for custom banner backgrounds.
